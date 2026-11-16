@@ -7,13 +7,14 @@ import driver.DriverFactory;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
+import utils.ConfigReader;
 
 public class Hooks {
 
     @Before
     public void setUp() {
         DriverFactory.initDriver();
-        DriverFactory.getDriver().get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+        DriverFactory.getDriver().get(ConfigReader.get("baseUrl"));
     }
 
     @After

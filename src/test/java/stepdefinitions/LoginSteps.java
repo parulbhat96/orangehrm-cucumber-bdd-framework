@@ -8,6 +8,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import pages.DashboardPage;
 import pages.LoginPage;
+import utils.ConfigReader;
 
 public class LoginSteps {
 
@@ -25,11 +26,11 @@ public class LoginSteps {
 
     @Given("the user is logged in as admin")
     public void userIsLoggedInAsAdmin() {
-        new LoginPage(DriverFactory.getDriver()).login("Admin", "admin123");
+        new LoginPage(DriverFactory.getDriver())
+                .login(ConfigReader.get("adminUsername"), ConfigReader.get("adminPassword"));
         String header = new DashboardPage(DriverFactory.getDriver()).getHeaderText();
         Assert.assertEquals(header, "Dashboard");
     }
-
     @Then("the dashboard is displayed")
     public void dashboardIsDisplayed() {
         DashboardPage dashboardPage = new DashboardPage(DriverFactory.getDriver());

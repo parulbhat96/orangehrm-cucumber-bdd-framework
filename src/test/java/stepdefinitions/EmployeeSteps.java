@@ -8,12 +8,21 @@ import io.cucumber.java.en.When;
 import pages.AddEmployeePage;
 import pages.EmployeeListPage;
 import pages.PimPage;
+import java.util.Map;
+import utils.ExcelUtils;
 
 public class EmployeeSteps {
 
     @When("the user opens the Add Employee page")
     public void openAddEmployeePage() {
         new PimPage(DriverFactory.getDriver()).openAddEmployee();
+    }
+    @When("the user adds an employee using Excel data row {string}")
+    public void addEmployeeFromExcel(String testId) {
+        Map<String, String> data = ExcelUtils.getRowByTestId(
+                "testdata/EmployeeData.xlsx", "Employees", testId);
+        new AddEmployeePage(DriverFactory.getDriver())
+                .addEmployee(data.get("FirstName"), data.get("LastName"));
     }
 
     @When("the user adds an employee with first name {string} and last name {string}")

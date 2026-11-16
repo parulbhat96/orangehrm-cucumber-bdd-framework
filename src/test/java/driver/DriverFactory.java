@@ -11,7 +11,8 @@ public class DriverFactory {
     public static void initDriver() {
         ChromeOptions options = new ChromeOptions();
         if (Boolean.parseBoolean(System.getProperty("headless", "false"))) {
-            options.addArguments("--headless=new", "--window-size=1920,1080");
+            options.addArguments("--headless=new", "--window-size=1920,1080",
+                    "--no-sandbox", "--disable-dev-shm-usage");
         }
         driver.set(new ChromeDriver(options));
         getDriver().manage().window().maximize();
